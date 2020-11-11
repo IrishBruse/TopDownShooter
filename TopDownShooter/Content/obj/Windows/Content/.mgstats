@@ -1,0 +1,12 @@
+Source File,Dest File,Processor Type,Content Type,Source File Size,Dest File Size,Build Seconds
+"E:/Projects/C#/TopDownShooter/TopDownShooter/Content/Ball.xnb","E:/Projects/C#/TopDownShooter/TopDownShooter/Content/bin/Windows/Content\Ball.xnb","CopyItem","File",4283,4283,0.000998
+"E:/Projects/C#/TopDownShooter/TopDownShooter/Content/Button.xnb","E:/Projects/C#/TopDownShooter/TopDownShooter/Content/bin/Windows/Content\Button.xnb","CopyItem","File",38587,38587,0.0089767
+"E:/Projects/C#/TopDownShooter/TopDownShooter/Content/DoublePoints.xnb","E:/Projects/C#/TopDownShooter/TopDownShooter/Content/bin/Windows/Content\DoublePoints.xnb","CopyItem","File",4283,4283,0.000997
+"E:/Projects/C#/TopDownShooter/TopDownShooter/Content/Font.xnb","E:/Projects/C#/TopDownShooter/TopDownShooter/Content/bin/Windows/Content\Font.xnb","CopyItem","File",20654,20654,0
+"E:/Projects/C#/TopDownShooter/TopDownShooter/Content/Gun.xnb","E:/Projects/C#/TopDownShooter/TopDownShooter/Content/bin/Windows/Content\Gun.xnb","CopyItem","File",4283,4283,0.0009967
+"E:/Projects/C#/TopDownShooter/TopDownShooter/Content/Health pack.xnb","E:/Projects/C#/TopDownShooter/TopDownShooter/Content/bin/Windows/Content\Health pack.xnb","CopyItem","File",9403,9403,0.001995
+"E:/Projects/C#/TopDownShooter/TopDownShooter/Content/Heart.xnb","E:/Projects/C#/TopDownShooter/TopDownShooter/Content/bin/Windows/Content\Heart.xnb","CopyItem","File",5787,5787,0
+"E:/Projects/C#/TopDownShooter/TopDownShooter/Content/Pixel.xnb","E:/Projects/C#/TopDownShooter/TopDownShooter/Content/bin/Windows/Content\Pixel.xnb","CopyItem","File",191,191,0.0009973
+"E:/Projects/C#/TopDownShooter/TopDownShooter/Content/Player.xnb","E:/Projects/C#/TopDownShooter/TopDownShooter/Content/bin/Windows/Content\Player.xnb","CopyItem","File",16571,16571,0.0009971
+"E:/Projects/C#/TopDownShooter/TopDownShooter/Content/WaveFont.xnb","E:/Projects/C#/TopDownShooter/TopDownShooter/Content/bin/Windows/Content\WaveFont.xnb","CopyItem","File",36014,36014,0
+"E:/Projects/C#/TopDownShooter/TopDownShooter/Content/Zombie.xnb","E:/Projects/C#/TopDownShooter/TopDownShooter/Content/bin/Windows/Content\Zombie.xnb","CopyItem","File",16571,16571,0.0009981

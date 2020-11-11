@@ -1,0 +1,48 @@
+
+#----------------------------- Global Properties ----------------------------#
+
+/outputDir:bin/$(Platform)
+/intermediateDir:obj/$(Platform)
+/platform:Windows
+/config:
+/profile:Reach
+/compress:False
+
+#-------------------------------- References --------------------------------#
+
+
+#---------------------------------- Content ---------------------------------#
+
+#begin Ball.xnb
+/copy:Ball.xnb
+
+#begin Button.xnb
+/copy:Button.xnb
+
+#begin DoublePoints.xnb
+/copy:DoublePoints.xnb
+
+#begin Font.xnb
+/copy:Font.xnb
+
+#begin Gun.xnb
+/copy:Gun.xnb
+
+#begin Health pack.xnb
+/copy:Health pack.xnb
+
+#begin Heart.xnb
+/copy:Heart.xnb
+
+#begin Pixel.xnb
+/copy:Pixel.xnb
+
+#begin Player.xnb
+/copy:Player.xnb
+
+#begin WaveFont.xnb
+/copy:WaveFont.xnb
+
+#begin Zombie.xnb
+/copy:Zombie.xnb
+
