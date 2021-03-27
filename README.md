@@ -10,4 +10,3 @@ its awful but a nice archieve of my oldest project
 -   `F1` to close the application for what ever reason
 -   `K` cheat to lower hp by 3
 -   `L` cheat to reset hp back to 100
--   
