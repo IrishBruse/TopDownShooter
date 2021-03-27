@@ -12,9 +12,9 @@ public class Zombie
 
     private Rectangle Rect;
 
-    private bool Destroys = false;
+    private bool Destroys;
 
-    private int Type = 0;
+    private int Type;
 
     public Rectangle CollisionRectangle
     {
@@ -47,26 +47,26 @@ public class Zombie
 
     public void Update(GameTime gameTime, int PlayerX, int PlayerY)
     {
-        if(Destroys)
+        if (Destroys)
         {
             return;
         }
         Vector2 vector = new Vector2(PlayerX, PlayerY);
-        if((Type == 0 && Rect.X != PlayerX) || Rect.Y != PlayerY)
+        if ((Type == 0 && Rect.X != PlayerX) || Rect.Y != PlayerY)
         {
-            if((float)Rect.X > vector.X)
+            if ((float)Rect.X > vector.X)
             {
                 Rect.X -= 2;
             }
-            else if((float)Rect.X < vector.X)
+            else if ((float)Rect.X < vector.X)
             {
                 Rect.X += 2;
             }
-            if((float)Rect.Y > vector.Y)
+            if ((float)Rect.Y > vector.Y)
             {
                 Rect.Y -= 2;
             }
-            else if((float)Rect.Y < vector.Y)
+            else if ((float)Rect.Y < vector.Y)
             {
                 Rect.Y += 2;
             }
@@ -75,7 +75,7 @@ public class Zombie
 
     public void Draw(SpriteBatch spritebatch)
     {
-        if(!Destroys)
+        if (!Destroys)
         {
             spritebatch.Draw(Sprite1, Rect, Color.White);
         }

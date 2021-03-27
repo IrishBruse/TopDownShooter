@@ -16,9 +16,9 @@ public class Pause
 
     private SpriteFont Font;
 
-    private bool PreviousPressed = false;
+    private bool PreviousPressed;
 
-    private bool active = false;
+    private bool active;
 
     public bool Active
     {
@@ -43,11 +43,11 @@ public class Pause
     public void Update(GameTime gameTime)
     {
         KeyboardState state = Keyboard.GetState();
-        if(state.IsKeyDown(Keys.Escape) && !PreviousPressed)
+        if (state.IsKeyDown(Keys.Escape) && !PreviousPressed)
         {
             active = !active;
         }
-        if(state.IsKeyUp(Keys.Escape))
+        if (state.IsKeyUp(Keys.Escape))
         {
             PreviousPressed = false;
         }
@@ -60,7 +60,7 @@ public class Pause
     public void Draw(SpriteBatch spriteBatch)
     {
         MouseState state = Mouse.GetState();
-        if(active)
+        if (active)
         {
             spriteBatch.DrawString(Font, "Paused", new Vector2(Width / 2, Height / 2 - 300), Color.Black);
             Rect = new Rectangle(0, 0, Width, Height);

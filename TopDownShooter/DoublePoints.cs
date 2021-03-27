@@ -10,9 +10,9 @@ public class DoublePoints
 
     private Vector2 WindowPos;
 
-    private bool active = false;
+    private bool active;
 
-    private bool Animate = false;
+    private bool Animate;
 
     private int timer = -1;
 
@@ -37,63 +37,63 @@ public class DoublePoints
 
     public void Draw(SpriteBatch spriteBatch)
     {
-        if(timer > 0)
+        if (timer > 0)
         {
             timer--;
         }
-        else if(timer == -1)
+        else if (timer == -1)
         {
             timer = 1020;
         }
-        if(timer == 200)
+        if (timer == 200)
         {
             Animate = true;
         }
-        if(timer == 180)
+        if (timer == 180)
         {
             Animate = false;
         }
-        if(timer == 160)
+        if (timer == 160)
         {
             Animate = true;
         }
-        if(timer == 140)
+        if (timer == 140)
         {
             Animate = false;
         }
-        if(timer == 120)
+        if (timer == 120)
         {
             Animate = true;
         }
-        if(timer == 100)
+        if (timer == 100)
         {
             Animate = false;
         }
-        if(timer == 80)
+        if (timer == 80)
         {
             Animate = true;
         }
-        if(timer == 60)
+        if (timer == 60)
         {
             Animate = false;
         }
-        if(timer == 40)
+        if (timer == 40)
         {
             Animate = true;
         }
-        if(timer == 20)
+        if (timer == 20)
         {
             Animate = false;
         }
-        if(timer == 0)
+        if (timer == 0)
         {
             active = false;
         }
-        if(!active && timer == 0)
+        if (!active && timer == 0)
         {
             timer = -1;
         }
-        if(active && !Animate)
+        if (active && !Animate)
         {
             spriteBatch.Draw(Sprite, Rect, Color.White);
         }

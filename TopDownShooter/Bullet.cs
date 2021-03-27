@@ -9,7 +9,7 @@ internal class Bullet
 
     private Rectangle Rect;
 
-    private bool destroy = false;
+    private bool destroy;
 
     private int Dir;
 
@@ -45,21 +45,21 @@ internal class Bullet
 
     public void Draws(SpriteBatch spritebatch)
     {
-        if(!destroy)
+        if (!destroy)
         {
-            if(Dir == 1)
+            if (Dir == 1)
             {
                 Rect.Y -= 12;
             }
-            if(Dir == 2)
+            if (Dir == 2)
             {
                 Rect.Y += 12;
             }
-            if(Dir == 3)
+            if (Dir == 3)
             {
                 Rect.X -= 12;
             }
-            if(Dir == 4)
+            if (Dir == 4)
             {
                 Rect.X += 12;
             }

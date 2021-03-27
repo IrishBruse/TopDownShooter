@@ -22,9 +22,9 @@ public class MainMenu
 
     private ButtonState PreviousClicked = ButtonState.Released;
 
-    private bool PreviousPressed = false;
+    private bool PreviousPressed;
 
-    private int Choice = 0;
+    private int Choice;
 
     private bool active = true;
 
@@ -54,10 +54,10 @@ public class MainMenu
     public void Update(GameTime gameTime)
     {
         KeyboardState state = Keyboard.GetState();
-        if(state.IsKeyDown(Keys.Escape) && !PreviousPressed)
+        if (state.IsKeyDown(Keys.Escape) && !PreviousPressed)
         {
             active = !active;
-            if(!active)
+            if (!active)
             {
                 Choice = 1;
             }
@@ -66,7 +66,7 @@ public class MainMenu
                 Choice = 0;
             }
         }
-        if(state.IsKeyUp(Keys.Escape))
+        if (state.IsKeyUp(Keys.Escape))
         {
             PreviousPressed = false;
         }
@@ -79,48 +79,48 @@ public class MainMenu
     public void Draw(SpriteBatch spriteBatch)
     {
         MouseState state = Mouse.GetState();
-        if(Choice == 2)
+        if (Choice == 2)
         {
             Choice = 0;
         }
-        if(Rect1.Contains(state.X, state.Y) && active)
+        if (Rect1.Contains(state.X, state.Y) && active)
         {
             spriteBatch.Draw(Texture, Rect1, Hover);
-            if(state.LeftButton == ButtonState.Pressed && PreviousClicked == ButtonState.Released)
+            if (state.LeftButton == ButtonState.Pressed && PreviousClicked == ButtonState.Released)
             {
                 Choice = 1;
                 active = false;
             }
         }
-        else if(active)
+        else if (active)
         {
             spriteBatch.Draw(Texture, Rect1, Color.White);
         }
-        if(Rect2.Contains(state.X, state.Y) && active)
+        if (Rect2.Contains(state.X, state.Y) && active)
         {
             spriteBatch.Draw(Texture, Rect2, Hover);
-            if(state.LeftButton == ButtonState.Pressed && PreviousClicked == ButtonState.Released)
+            if (state.LeftButton == ButtonState.Pressed && PreviousClicked == ButtonState.Released)
             {
                 Choice = 2;
             }
         }
-        else if(active)
+        else if (active)
         {
             spriteBatch.Draw(Texture, Rect2, Color.White);
         }
-        if(Rect3.Contains(state.X, state.Y) && active)
+        if (Rect3.Contains(state.X, state.Y) && active)
         {
             spriteBatch.Draw(Texture, Rect3, Hover);
-            if(state.LeftButton == ButtonState.Pressed && PreviousClicked == ButtonState.Released)
+            if (state.LeftButton == ButtonState.Pressed && PreviousClicked == ButtonState.Released)
             {
                 Choice = 3;
             }
         }
-        else if(active)
+        else if (active)
         {
             spriteBatch.Draw(Texture, Rect3, Color.White);
         }
-        if(active)
+        if (active)
         {
             spriteBatch.DrawString(Font, "Play", new Vector2(Rect1.X + 10, Rect1.Center.Y - 11), Color.Black);
             spriteBatch.DrawString(Font, "FullScreen", new Vector2(Rect2.X + 10, Rect2.Center.Y - 11), Color.Black);

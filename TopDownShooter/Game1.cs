@@ -1,16 +1,12 @@
-﻿using Microsoft.Xna.Framework;
+﻿using System;
+using System.Collections.Generic;
+using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
-using System;
-using System.Collections.Generic;
 
 public class Game1 : Game
 {
-    private const string LIVES_PREFIX = "Lives: ";
-
-    private const string KILLS_PREFIX = "Score: ";
-
-    private GraphicsDeviceManager graphics;
+    private readonly GraphicsDeviceManager graphics;
 
     private SpriteBatch spriteBatch;
 
@@ -20,13 +16,11 @@ public class Game1 : Game
 
     private Texture2D ZombieSprite1;
 
-    private Texture2D ZombieSprite2;
-
     private Texture2D Pixel;
 
-    private int WINDOW_WIDTH = 1280;
+    private readonly int WINDOW_WIDTH = 1280;
 
-    private int WINDOW_HEIGHT = 720;
+    private readonly int WINDOW_HEIGHT = 720;
 
     private Wave WaveController;
 
@@ -36,11 +30,11 @@ public class Game1 : Game
 
     private Zombie zombie;
 
-    private List<Zombie> Zombies = new List<Zombie>();
+    private List<Zombie> Zombies = new();
 
     private Bullet bullet;
 
-    private List<Bullet> bullets = new List<Bullet>();
+    private readonly List<Bullet> bullets = new();
 
     private ButtonState PreviousButtonState = ButtonState.Released;
 
@@ -48,7 +42,7 @@ public class Game1 : Game
 
     private int Score;
 
-    private int MaxZombie = 1000000;
+    private readonly int MaxZombie = 1000000;
 
     private int X;
 
@@ -56,28 +50,24 @@ public class Game1 : Game
 
     private Vector2 KillsPos;
 
-    private int CoolDown = 0;
+    private int CoolDown;
 
     private DoublePoints PowerUp1;
 
-    private int HighScore;
-
-    private int Direction = 0;
+    private int Direction;
 
     private SpriteFont Font;
 
     private SpriteFont WaveFont;
 
-    private GameTime gametime = new GameTime();
+    private readonly GameTime gametime = new();
 
-    private Random RandomNumberGenerator = new Random();
+    private readonly Random RandomNumberGenerator = new();
 
     public Game1()
     {
         graphics = new GraphicsDeviceManager(this);
         Content.RootDirectory = "Content";
-        graphics.PreferredBackBufferWidth = WINDOW_WIDTH;
-        graphics.PreferredBackBufferHeight = WINDOW_HEIGHT;
     }
 
     protected override void Initialize()
@@ -85,21 +75,26 @@ public class Game1 : Game
         KillsPos = new Vector2(WINDOW_WIDTH - 80, 0f);
         Zombies = new List<Zombie>(MaxZombie);
         WaveController = new Wave();
+
+        graphics.PreferredBackBufferWidth = WINDOW_WIDTH;
+        graphics.PreferredBackBufferHeight = WINDOW_HEIGHT;
+        graphics.ApplyChanges();
+
         base.Initialize();
     }
 
     protected override void LoadContent()
     {
-        spriteBatch = new SpriteBatch(base.GraphicsDevice);
-        BallSprite = base.Content.Load<Texture2D>("Ball");
-        Pixel = base.Content.Load<Texture2D>("Pixel");
-        Player = new Player(base.Content.Load<Texture2D>("Player"), 24, 24, WINDOW_WIDTH, WINDOW_HEIGHT, WINDOW_WIDTH / 2, WINDOW_HEIGHT / 2, Font);
-        ZombieSprite1 = base.Content.Load<Texture2D>("Zombie");
-        Font = base.Content.Load<SpriteFont>("Font");
-        WaveFont = base.Content.Load<SpriteFont>("WaveFont");
-        menu = new MainMenu(base.Content.Load<Texture2D>("Button"), new Vector2(WINDOW_WIDTH, WINDOW_HEIGHT), Font);
-        PowerUp1 = new DoublePoints(base.Content.Load<Texture2D>("DoublePoints"), new Vector2(WINDOW_WIDTH, WINDOW_HEIGHT));
-        Pause = new Pause(base.Content.Load<Texture2D>("Pixel"), WINDOW_WIDTH, WINDOW_HEIGHT, Font);
+        spriteBatch = new SpriteBatch(GraphicsDevice);
+        BallSprite = Content.Load<Texture2D>("Ball");
+        Pixel = Content.Load<Texture2D>("Pixel");
+        Player = new Player(Content.Load<Texture2D>("Player"), 24, 24, WINDOW_WIDTH, WINDOW_HEIGHT, WINDOW_WIDTH / 2, WINDOW_HEIGHT / 2, Font);
+        ZombieSprite1 = Content.Load<Texture2D>("Zombie");
+        Font = Content.Load<SpriteFont>("Font");
+        WaveFont = Content.Load<SpriteFont>("WaveFont");
+        menu = new MainMenu(Content.Load<Texture2D>("Button"), new Vector2(WINDOW_WIDTH, WINDOW_HEIGHT), Font);
+        PowerUp1 = new DoublePoints(Content.Load<Texture2D>("DoublePoints"), new Vector2(WINDOW_WIDTH, WINDOW_HEIGHT));
+        Pause = new Pause(Content.Load<Texture2D>("Pixel"), WINDOW_WIDTH, WINDOW_HEIGHT, Font);
         base.LoadContent();
     }
 
@@ -107,62 +102,62 @@ public class Game1 : Game
     {
         KeyboardState state = Keyboard.GetState();
         MouseState state2 = Mouse.GetState();
-        if(state.IsKeyDown(Keys.F1))
+        if (state.IsKeyDown(Keys.F1))
         {
             Exit();
         }
-        if(HP <= 0)
+        if (HP <= 0)
         {
             HP = 100;
             Player.x = WINDOW_WIDTH / 2;
             Player.y = WINDOW_HEIGHT / 2;
             WaveController.Reset = true;
-            for(int num = Zombies.Count - 1; num >= 0; num--)
+            for (int num = Zombies.Count - 1; num >= 0; num--)
             {
                 Zombies.RemoveAt(num);
             }
             Score = 0;
             menu.Active = true;
         }
-        if(menu.State == 2)
+        if (menu.State == 2)
         {
             graphics.ToggleFullScreen();
         }
-        if(menu.State == 3)
+        if (menu.State == 3)
         {
             Exit();
         }
-        if(!menu.Active)
+        if (!menu.Active)
         {
-            base.IsMouseVisible = true;
+            IsMouseVisible = true;
             Pause.Update(gametime);
-            if(!Pause.Active)
+            if (!Pause.Active)
             {
                 Player.Update(gameTime);
-                if(CoolDown > 0)
+                if (CoolDown > 0)
                 {
                     CoolDown--;
                 }
                 int coolDown = 60;
-                if(state.IsKeyDown(Keys.Up) && CoolDown == 0)
+                if (state.IsKeyDown(Keys.Up) && CoolDown == 0)
                 {
                     Direction = 1;
                     CreateBullet();
                     CoolDown = coolDown;
                 }
-                if(state.IsKeyDown(Keys.Down) && CoolDown == 0)
+                if (state.IsKeyDown(Keys.Down) && CoolDown == 0)
                 {
                     Direction = 2;
                     CreateBullet();
                     CoolDown = coolDown;
                 }
-                if(state.IsKeyDown(Keys.Left) && CoolDown == 0)
+                if (state.IsKeyDown(Keys.Left) && CoolDown == 0)
                 {
                     Direction = 3;
                     CreateBullet();
                     CoolDown = coolDown;
                 }
-                if(state.IsKeyDown(Keys.Right) && CoolDown == 0)
+                if (state.IsKeyDown(Keys.Right) && CoolDown == 0)
                 {
                     Direction = 4;
                     CreateBullet();
@@ -170,37 +165,36 @@ public class Game1 : Game
                 }
                 int num2 = 2;
                 WaveController.Update(gametime, Zombies.Count);
-                if(WaveController.AmountToSpawn > 0 && num2 == 2)
+                if (WaveController.AmountToSpawn > 0 && num2 == 2)
                 {
-                    num2 = 1000;
                     SpawnZombie();
                     WaveController.AmountToSpawn--;
                 }
-                else if(WaveController.AmountToSpawn == 0)
+                else if (WaveController.AmountToSpawn == 0)
                 {
                     WaveController.AmountToSpawn = -1;
                     WaveController.WaveNumber++;
                 }
-                for(int num = Zombies.Count - 1; num >= 0; num--)
+                for (int num = Zombies.Count - 1; num >= 0; num--)
                 {
-                    if(Zombies[num].Destroy)
+                    if (Zombies[num].Destroy)
                     {
                         Zombies.RemoveAt(num);
                         Score++;
-                        if(PowerUp1.Active)
+                        if (PowerUp1.Active)
                         {
                             Score++;
                         }
                     }
                 }
-                foreach(Zombie zombie in Zombies)
+                foreach (Zombie zombie in Zombies)
                 {
                     zombie.Update(gameTime, Player.CollisionRectangle.Center.X, Player.CollisionRectangle.Center.Y);
-                    foreach(Bullet bullet2 in bullets)
+                    foreach (Bullet bullet2 in bullets)
                     {
-                        if(!zombie.Destroy && zombie.CollisionRectangle.Intersects(bullet2.CollisionRectangle))
+                        if (!zombie.Destroy && zombie.CollisionRectangle.Intersects(bullet2.CollisionRectangle))
                         {
-                            if(RandomNumberGenerator.Next(1, 18) == 1)
+                            if (RandomNumberGenerator.Next(1, 18) == 1)
                             {
                                 PowerUp1.Active = true;
                             }
@@ -209,19 +203,19 @@ public class Game1 : Game
                         }
                     }
                 }
-                foreach(Zombie zombie2 in Zombies)
+                foreach (Zombie zombie2 in Zombies)
                 {
-                    if(!zombie2.Destroy && zombie2.CollisionRectangle.Intersects(Player.CollisionRectangle))
+                    if (!zombie2.Destroy && zombie2.CollisionRectangle.Intersects(Player.CollisionRectangle))
                     {
                         zombie2.Destroy = true;
                         HP--;
                     }
                 }
-                if(state.IsKeyDown(Keys.K))
+                if (state.IsKeyDown(Keys.K))
                 {
                     HP -= 3;
                 }
-                if(state.IsKeyDown(Keys.L))
+                if (state.IsKeyDown(Keys.L))
                 {
                     HP = 100;
                 }
@@ -231,7 +225,7 @@ public class Game1 : Game
         }
         else
         {
-            base.IsMouseVisible = true;
+            IsMouseVisible = true;
         }
         base.Update(gameTime);
     }
@@ -239,20 +233,20 @@ public class Game1 : Game
     protected override void Draw(GameTime gameTime)
     {
         GamePadState state = GamePad.GetState(PlayerIndex.One);
-        base.GraphicsDevice.Clear(Color.CornflowerBlue);
+        GraphicsDevice.Clear(Color.CornflowerBlue);
         spriteBatch.Begin();
         KeyboardState state2 = Keyboard.GetState();
         MouseState state3 = Mouse.GetState();
         Player.Draw(spriteBatch);
         menu.Draw(spriteBatch);
-        foreach(Zombie zombie in Zombies)
+        foreach (Zombie zombie in Zombies)
         {
             zombie.Draw(spriteBatch);
         }
         PowerUp1.Draw(spriteBatch);
-        if(!menu.Active || !Pause.Active)
+        if (!menu.Active || !Pause.Active)
         {
-            foreach(Bullet bullet2 in bullets)
+            foreach (Bullet bullet2 in bullets)
             {
                 bullet2.Draws(spriteBatch);
             }
@@ -269,24 +263,26 @@ public class Game1 : Game
     {
         X = 0;
         Y = 0;
-        switch(RandomNumberGenerator.Next(1, 5))
+        switch (RandomNumberGenerator.Next(1, 5))
         {
             case 1:
-            X = RandomNumberGenerator.Next(0, WINDOW_WIDTH);
-            break;
+                X = RandomNumberGenerator.Next(0, WINDOW_WIDTH);
+                break;
             case 2:
-            X = RandomNumberGenerator.Next(0, WINDOW_WIDTH + 32);
-            Y = WINDOW_HEIGHT - 20;
-            break;
+                X = RandomNumberGenerator.Next(0, WINDOW_WIDTH + 32);
+                Y = WINDOW_HEIGHT - 20;
+                break;
             case 3:
-            X = WINDOW_WIDTH - 20;
-            Y = RandomNumberGenerator.Next(0, WINDOW_HEIGHT + 32);
-            break;
+                X = WINDOW_WIDTH - 20;
+                Y = RandomNumberGenerator.Next(0, WINDOW_HEIGHT + 32);
+                break;
             case 4:
-            Y = RandomNumberGenerator.Next(0, WINDOW_HEIGHT);
-            break;
+                Y = RandomNumberGenerator.Next(0, WINDOW_HEIGHT);
+                break;
+            default:
+                break;
         }
-        zombie = new Zombie(ZombieSprite1, ZombieSprite2, X, Y);
+        zombie = new Zombie(ZombieSprite1, null, X, Y);
         Zombies.Add(zombie);
     }
 
@@ -296,7 +292,7 @@ public class Game1 : Game
         bullets.Add(bullet);
     }
 
-    private string DrawKills(int kills)
+    private static string DrawKills(int kills)
     {
         return "Score: " + kills;
     }

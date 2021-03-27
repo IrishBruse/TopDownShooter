@@ -8,15 +8,15 @@ public class Wave
 
     private const int TimerConst = 120;
 
-    private bool Restart = false;
+    private bool Restart;
 
-    private int Zombies = 0;
+    private int Zombies;
 
     private int wave;
 
-    private int Timer = 0;
+    private int Timer;
 
-    private int ZombiesToSpawn = 0;
+    private int ZombiesToSpawn;
 
     public int AmountToSpawn
     {
@@ -62,19 +62,19 @@ public class Wave
 
     public void Update(GameTime gameTime, int ZombiesAmount)
     {
-        if(Restart)
+        if (Restart)
         {
             Zombies = 0;
             ZombiesToSpawn = 2;
             wave = 0;
             Restart = false;
         }
-        if(Zombies == -1 && Timer == 0)
+        if (Zombies == -1 && Timer == 0)
         {
             ZombiesToSpawn += 4;
             Zombies = ZombiesToSpawn;
         }
-        if(Timer > 0 && ZombiesAmount == 0)
+        if (Timer > 0 && ZombiesAmount == 0)
         {
             Timer--;
         }
@@ -87,7 +87,7 @@ public class Wave
     public void Draw(SpriteBatch spriteBatch, SpriteFont WaveFont, Vector2 WindowPos)
     {
         spriteBatch.DrawString(WaveFont, "Wave", new Vector2(WindowPos.X / 2f - 15f, 2f), Color.Red);
-        if(wave > 0)
+        if (wave > 0)
         {
             spriteBatch.DrawString(WaveFont, string.Concat(wave), new Vector2(WindowPos.X / 2f + 15f, 24f), Color.Red);
         }
